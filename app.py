@@ -22,8 +22,10 @@ def recommend(movie, movies_data):
         recommended_movies_posters.append(fetch_poster(movie_id))
     return recommended_movies, recommended_movies_posters
 def decompress_pickle(file):
-    data = bz2.BZ2File(file, 'rb')
-    data = cPickle.load(data)
+    # data = bz2.BZ2File(file, 'rb')
+    with bz2.BZ2File(file, 'rb') as f:
+        data = cPickle.load(f)
+    # data = cPickle.load(data)
     return data
 movies_list = decompress_pickle('movies.pbz2')
 similarity = decompress_pickle('similarity.pbz2')
